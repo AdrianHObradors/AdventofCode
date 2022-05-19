@@ -23,3 +23,4 @@ df2["size"] = df["raw"].apply(lambda x: [int(x.split("x")[0]), int(x.split("x")[
 df2["value"] = df2["size"].apply(lambda x: sum(2 * np.array(sorted(x)[0:2])))
 df2["total"] = df2["volume"] + df2["value"]
 print(f'The answer for part 2 is {df2["total"].sum()}')
+
