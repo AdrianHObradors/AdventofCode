@@ -1,18 +1,16 @@
 with open("input.txt") as file:
     reindeer = file.read().splitlines()
 
-
-# Comet flies at 14 km/s for 10 seconds, rests for 127 seconds
-# Dancer flies at 16 km/s for 11 seconds, rests for 162 seconds
-
 time = 2503  # From input
+
 
 def position(t, speed, speedtime, rest):
     x = 0
     st = speedtime
     r = rest
+    timed_position = {}  # For part 2 only
+    initial_t = t  # For part 2 only
     while t > 0:
-        t -= 1
         if st > 0:
             x += speed
             st -= 1
@@ -21,9 +19,13 @@ def position(t, speed, speedtime, rest):
             if r == 0:
                 st = speedtime
                 r = rest
-    return(x)
+        timed_position[initial_t - t] = x  # Not needed for part 1
+        t -= 1
+    return timed_position  # Change to x for part 1
 
 
+# Part 1
+"""
 # position(t, speed, speedtime, rest)
 final_positions = []
 for i in reindeer:
@@ -32,7 +34,25 @@ for i in reindeer:
     final_positions.append(x)
 
 
-print(max(final_positions))
+#print(max(final_positions))
+"""
 
-# 2176 is too low
-# 2640 is too low
+x_per_sec = {}
+for i in reindeer:
+    i = i.split()
+    x_per_sec[i[0]] = position(time, int(i[3]), int(i[6]), int(i[13]))
+
+scores = {r: 0 for r in x_per_sec.keys()}
+for t in range(time):
+    winners = []
+    distance = 0
+    for r in x_per_sec.keys():
+        if x_per_sec[r][t] > distance:
+            winners = [r]
+            distance = x_per_sec[r][t]
+        elif x_per_sec[r][t] == distance:
+            winners.append(r)
+    for w in winners:
+        scores[w] += 1
+print(scores)
+print(max(scores.values()))
