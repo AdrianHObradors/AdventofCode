@@ -54,5 +54,5 @@ for t in range(time):
             winners.append(r)
     for w in winners:
         scores[w] += 1
-print(scores)
+
 print(max(scores.values()))
