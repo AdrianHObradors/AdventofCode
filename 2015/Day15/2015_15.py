@@ -23,6 +23,8 @@ four = np.array(list(ingredients["Sugar"].values()))
 best = 0
 (i, j, k, l) = (0, 0, 0, 0)
 
+
+# For part 1 remove "and propertiesN[-1] == 500"
 for i in range(1, 100):  # Should be 101, but I know it is going to be mixed.
     properties1 = i * one
     if i < 100:
@@ -35,24 +37,24 @@ for i in range(1, 100):  # Should be 101, but I know it is going to be mixed.
                         l = 100 - i - j - k
                         properties4 = properties3 + l * four
                         properties4[properties4 < 0] = 0
-                        if np.prod(properties4[:-1]) > best:
+                        if np.prod(properties4[:-1]) > best and properties4[-1] == 500:
                             best = np.prod(properties4[:-1])
                             print(f'Current best is i = {i}, j = {j}, k = {k}, l = {l}, best = {best}')
                         continue
                     properties3[properties3 < 0] = 0
-                    if i + j + k == 100 and np.prod(properties3[:-1]) > best:
+                    if i + j + k == 100 and np.prod(properties3[:-1]) > best and properties3[-1] == 500:
                         best = np.prod(properties3[:-1])
                         print(f'Current best is i = {i}, j = {j}, k = {k}, l = {l}, best = {best}')
                     elif i + j + k > 100:
                         break
             properties2[properties2 < 0] = 0
-            if i + j == 100 and np.prod(properties2[:-1]) > best:
+            if i + j == 100 and np.prod(properties2[:-1]) > best and properties2[-1] == 500:
                 best = np.prod(properties2[:-1])
                 print(f'Current best is i = {i}, j = {j}, k = {k}, l = {l}, best = {best}')
             elif i + j > 100:
                 break
     properties1[properties1 < 0] = 0
-    if i == 100 and np.prod(properties1[:-1]) > best:
+    if i == 100 and np.prod(properties1[:-1]) > best and properties1[-1] == 500:
         best = np.prod(properties1[:-1])
         print(f'Current best is i = {i}, j = {j}, k = {k}, l = {l}, best = {best}')
 
